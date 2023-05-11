@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Login">
+
+    <TextView
+        android:id="@+id/lbTitleLogin"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/app_name"
+        android:textColor="@color/blue"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imgIcoLoginn"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:src="@drawable/blue_car_logo" />
+
+    <EditText
+        android:id="@+id/txtEmailLogin"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Usuario"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/txtPasswordLogin"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/btn1"
+        android:gravity="center"
+        android:text="Ingresar"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/lbDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:text="¿No posees usuario aún?"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/btnlbRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:text="Regístrate"
+            android:textColor="@color/btn1"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</LinearLayout>
