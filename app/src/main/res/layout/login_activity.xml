@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Login">
+    tools:context=".login.SignInActivity">
 
     <TextView
         android:id="@+id/lbTitleLogin"
@@ -35,7 +35,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginBottom="10dp"
         android:ems="10"
-        android:hint="Usuario"
+        android:hint="Correo"
         android:textSize="16sp" />
 
     <EditText

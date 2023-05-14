@@ -4,17 +4,17 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.widget.ListView
+import com.example.carsmotos.adapters.MarcaAdapter
 import com.example.carsmotos.db.HelperDB
 
-class Marcas(context: Context) {
+class Marcas(context: Context?) {
     private var helper: HelperDB? = null
     private var db: SQLiteDatabase? = null
 
 
     init {
         helper = HelperDB(context)
-        db = helper!!.getWritableDatabase()
+        db = helper!!.writableDatabase
     }
 
     companion object {
@@ -68,13 +68,38 @@ class Marcas(context: Context) {
         }
     }
 
+    fun addNewMarca(nombre: String?) {
+        db!!.insert(
+            TABLE_NAME_MARCA,
+            null,
+            generarContentValues(nombre)
+        )
+    }
 
-    fun showAllUsuario(): Cursor? {
-        val columns = arrayOf(COL_ID, COL_NOMBRE)
-        return db!!.query(
+    // Eliminar un registro
+    fun deleteMarca(id: Int) {
+        db!!.delete(TABLE_NAME_MARCA, "${Usuarios.COL_ID}=?", arrayOf(id.toString()))
+    }
+
+    //Modificar un registro
+    fun updateMarca(
+        id: Int,
+        nombre: String?
+    ) {
+        db!!.update(
+            TABLE_NAME_MARCA, generarContentValues(nombre),
+            "${Usuarios.COL_ID}=?", arrayOf(id.toString())
+        )
+    }
+
+
+    fun showAllMarcas(): Cursor? {
+        val columns = arrayOf(COL_ID, COL_NOMBRE) //Como la tabla solo tiene 2 columnas, yo solo dos le voy a agregar pero aqui se agregan o quitan
+        val cursorAllMarcas : Cursor = db!!.query(
             TABLE_NAME_MARCA, columns,
             null, null, null, null, "$COL_NOMBRE ASC"
         )
+        return cursorAllMarcas
     }
 
     // Debido a que el Spinner solamente guarda el nombre, esta funcion nos ayudara a recuperar el ID de la categoria

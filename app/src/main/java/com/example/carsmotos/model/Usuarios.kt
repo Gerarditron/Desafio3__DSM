@@ -60,36 +60,38 @@ class Usuarios(context: Context) {
 
         return usuariosValores
     }
-    /*
-    fun insertValuesDefault() {
-        val usuarios = arrayOf(
-            "Gerardo Jose",
-            "Velasquez Cruz",
-            "Embutidos",
-            "Mariscos",
-            "Pescado",
-            "Bebidas",
-            "Verduras",
-            "Frutas",
-            "Bebidas Carbonatadas",
-            "Bebidas no carbonatadas"
+
+    //Agregar un nuevo registro
+    fun addNewUser(nombre: String?, apellido: String?, email: String?, user: String?, password: String?, tipo: String?) {
+        db!!.insert(
+            TABLE_NAME_USUARIO,
+            null,
+            generarContentValues(nombre, apellido, email, user, password,tipo)
         )
-
-
-        // Verificacion si existen registros precargados
-        val columns =
-            arrayOf(COL_ID, COL_NOMBRE, COL_APELLIDO, COL_EMAIL, COL_USER, COL_PASSWORD, COL_TIPO)
-        var cursor: Cursor? =
-            db!!.query(TABLE_NAME_USUARIO, columns, null, null, null, null, null)
-        // Validando que se ingrese la informacion solamente una vez, cuando se instala por primera vez la aplicacion
-        if (cursor == null || cursor!!.count <= 0) {
-            // Registrando categorias por defecto
-            for (item in usuarios) {
-                db!!.insert(TABLE_NAME_USUARIO, null, generarContentValues(item))
-            }
-        }
     }
-    */
+
+    // Eliminar un registro
+    fun deleteUser(id: Int) {
+        db!!.delete(TABLE_NAME_USUARIO, "$COL_ID=?", arrayOf(id.toString()))
+    }
+
+    //Modificar un registro
+    fun updateUser(
+        id: Int,
+        nombre: String?,
+        apellido: String?,
+        email: String?,
+        user: String?,
+        password: String?,
+        tipo: String?
+    ) {
+        db!!.update(
+            TABLE_NAME_USUARIO, generarContentValues(nombre, apellido, email, user,password,tipo),
+            "$COL_ID=?", arrayOf(id.toString())
+        )
+    }
+
+
 
     fun showAllUsuario(): Cursor? {
         val columns = arrayOf(COL_ID, COL_APELLIDO, COL_NOMBRE, COL_EMAIL, COL_TIPO)
@@ -99,27 +101,38 @@ class Usuarios(context: Context) {
         )
     }
 
-    // Debido a que el Spinner solamente guarda el nombre, esta funcion nos ayudara a recuperar el ID de la categoria
-    fun searchID(nombre: String): Int? {
-        val columns = arrayOf(COL_ID, COL_NOMBRE)
-        var cursor: Cursor? = db!!.query(
-            TABLE_NAME_USUARIO, columns,
-            "$COL_NOMBRE=?", arrayOf(nombre.toString()), null, null, null
-        )
-        cursor!!.moveToFirst()
-        return cursor!!.getInt(0)
-    }
-
-
-    //POR SI ES NECESARIO UN BUSCADOR
-    fun searchNombre(id: Int): String? {
-        val columns = arrayOf(COL_ID, COL_NOMBRE)
-        var cursor: Cursor? = db!!.query(
+    // Mostrar un registro particular
+    fun searchUsuarioID(id: Int): Cursor? {
+        val columns = arrayOf(COL_ID, COL_APELLIDO, COL_NOMBRE, COL_EMAIL, COL_TIPO)
+        return db!!.query(
             TABLE_NAME_USUARIO, columns,
             "$COL_ID=?", arrayOf(id.toString()), null, null, null
         )
-        cursor!!.moveToFirst()
-        return cursor!!.getString(1)
     }
+
+
+    // Mostrar un registro particular POR EMAIL
+    fun searchUsuarioEmail(email: String): Cursor? {
+        //Este es el arreglo de columnas que se envian a la otra actividad
+        //Si se desean mas o menos columnas, aqui se agregan o quitan
+        val columns = arrayOf(COL_ID, COL_EMAIL, COL_TIPO)
+        //Y con este QUERY yo busco todos los valores que cumplan con el EMAIL que le he mandado desde el LOGIN
+        return db!!.query(
+            TABLE_NAME_USUARIO, columns,
+            "$COL_EMAIL=?", arrayOf(email), null, null, null
+        )
+    }
+
+
+    // Mostrar TODOS LOS REGISTROS
+    fun showAllUsuarios(): Cursor? {
+        val columns = arrayOf(COL_ID, COL_NOMBRE, COL_APELLIDO,COL_USER, COL_EMAIL ) //Agrego todas las columnas que sean necesarias
+        val cursorAllUsuarios : Cursor = db!!.query(
+            TABLE_NAME_USUARIO, columns,
+            null, null, null, null, "$COL_APELLIDO ASC"
+        )
+        return cursorAllUsuarios
+    }
+
 
 }
