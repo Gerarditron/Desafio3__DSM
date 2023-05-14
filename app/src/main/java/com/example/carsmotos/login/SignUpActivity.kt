@@ -67,8 +67,7 @@ class SignUpActivity : AppCompatActivity(){
 
         //Al presionar el boton de Cancelar
         btnBackRegister.setOnClickListener{
-            intent = Intent(this, SignInActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
     }
