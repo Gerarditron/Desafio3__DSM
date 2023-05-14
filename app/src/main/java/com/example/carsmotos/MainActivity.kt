@@ -75,6 +75,7 @@ class MainActivity : ComponentActivity() {
         imgColoresCRUD = findViewById(R.id.imgColoresCRUD)
         imgTipoautomovilCRUD = findViewById(R.id.imgTipoautomovilCRUD)
 
+        //Recogiendo los datos traidos de la actividad anterior
         val datos: Bundle? = intent.getExtras()
         if (datos != null) {
             //Recibimos los datos de la actividad anterior
@@ -186,8 +187,7 @@ class MainActivity : ComponentActivity() {
         //CERRAR SESION
         imgLogOut.setOnClickListener {
             Toast.makeText(this,"Cerrando sesión",Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, SignInActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
 

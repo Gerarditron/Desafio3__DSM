@@ -1,5 +1,6 @@
 package com.example.carsmotos
 
+import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
@@ -116,8 +117,12 @@ class MarcasActivity: AppCompatActivity() {
 
         //Al agregar una marca
         btnAgregarMarca.setOnClickListener {
-
-
+            //Le envio como "putExtra" la opcion de AGREGAR, porque al inicio de la actividad MarcasCRUD,
+            //para que en la actividad MarcaCRUD solo le quito las opciones segun la "opc" recibida
+            val opc = "agregar"
+            val intent = Intent(this, MarcasCRUD::class.java)
+            intent.putExtra("opc",opc)
+            startActivity(intent)
         }
 
     }
