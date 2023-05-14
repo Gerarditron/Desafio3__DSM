@@ -3,6 +3,7 @@ package com.example.carsmotos.db
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.example.carsmotos.model.Usuarios
 import com.example.carsmotos.model.Automoviles
 import com.example.carsmotos.model.Marcas
@@ -24,6 +25,7 @@ class HelperDB(context: Context?) :
         db.execSQL(TiposAutomoviles.CREATE_TABLE_TIPOAUTOMOVIL)
         db.execSQL(Automoviles.CREATE_TABLE_AUTOMOVIL)
         db.execSQL(FavoritosAutomoviles.CREATE_TABLE_FAVORITOSAUTOMOVIL)
+        Log.d("DB-CREATE","Se han creado todas las tablas")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {}

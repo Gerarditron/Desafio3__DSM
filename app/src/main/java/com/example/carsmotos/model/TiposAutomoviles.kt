@@ -68,13 +68,38 @@ class TiposAutomoviles (context: Context) {
         }
     }
 
+    fun addNewTipoAutomovil(descripcion: String?) {
+        db!!.insert(
+            TABLE_NAME_TIPOAUTOMOVIL,
+            null,
+            generarContentValues(descripcion)
+        )
+    }
+
+    // Eliminar un registro
+    fun deleteTipoAutomovil(id: Int) {
+        db!!.delete(TABLE_NAME_TIPOAUTOMOVIL, "${Usuarios.COL_ID}=?", arrayOf(id.toString()))
+    }
+
+    //Modificar un registro
+    fun updateColor(
+        id: Int,
+        nombre: String?
+    ) {
+        db!!.update(
+            TABLE_NAME_TIPOAUTOMOVIL, generarContentValues(nombre),
+            "${Usuarios.COL_ID}=?", arrayOf(id.toString())
+        )
+    }
+
 
     fun showAllTiposAutomoviles(): Cursor? {
-        val columns = arrayOf(COL_ID, COL_DESCRIPCION)
-        return db!!.query(
+        val columns = arrayOf(COL_ID, COL_DESCRIPCION) //Como la tabla solo tiene 2 columnas, solo dos le voy a enviar, pero aqui se agregan o quitan las columnas deseadas
+        val cursorAllTiposAutomoviles : Cursor = db!!.query(
             TABLE_NAME_TIPOAUTOMOVIL, columns,
             null, null, null, null, "$COL_DESCRIPCION ASC"
         )
+        return cursorAllTiposAutomoviles
     }
 
     // Debido a que el Spinner solamente guarda el nombre, esta funcion nos ayudara a recuperar el ID de la categoria

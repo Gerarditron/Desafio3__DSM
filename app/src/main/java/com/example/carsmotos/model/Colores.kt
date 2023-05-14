@@ -68,13 +68,37 @@ class Colores (context: Context){
         }
     }
 
+    fun addNewColor(descripcion: String?) {
+        db!!.insert(
+            TABLE_NAME_COLORES,
+            null,
+            generarContentValues(descripcion)
+        )
+    }
+
+    // Eliminar un registro
+    fun deleteColor(id: Int) {
+        db!!.delete(TABLE_NAME_COLORES, "${Usuarios.COL_ID}=?", arrayOf(id.toString()))
+    }
+
+    //Modificar un registro
+    fun updateColor(
+        id: Int,
+        nombre: String?
+    ) {
+        db!!.update(
+            TABLE_NAME_COLORES, generarContentValues(nombre),
+            "${Usuarios.COL_ID}=?", arrayOf(id.toString())
+        )
+    }
 
     fun showAllColores(): Cursor? {
-        val columns = arrayOf(COL_ID, COL_DESCRIPCION)
-        return db!!.query(
+        val columns = arrayOf(COL_ID, COL_DESCRIPCION) //Como la tabla solo tiene 2 columnas, yo solo dos le voy a agregar pero aqui se agregan o quitan
+        val cursorAllColores : Cursor = db!!.query(
             TABLE_NAME_COLORES, columns,
             null, null, null, null, "$COL_DESCRIPCION ASC"
         )
+        return cursorAllColores
     }
 
     // Debido a que el Spinner solamente guarda el nombre, esta funcion nos ayudara a recuperar el ID de la categoria

@@ -103,7 +103,7 @@ class Automoviles(context: Context?) {
         )
     }
 
-    // Debido a que el Spinner solamente guarda el nombre, esta funcion nos ayudara a recuperar el ID de la categoria
+    //Por si deseamos que nos imprima SOLO LA DESCRIPCION, que encontremos con un id
     fun searchID(nombre: String): Int? {
         val columns = arrayOf(COL_ID, COL_DESCRIPCION)
         var cursor: Cursor? = db!!.query(
@@ -115,15 +115,6 @@ class Automoviles(context: Context?) {
     }
 
 
-    //POR SI ES NECESARIO UN BUSCADOR
-    fun searchDesc(id: Int): String? {
-        val columns = arrayOf(COL_ID, COL_DESCRIPCION)
-        var cursor: Cursor? = db!!.query(
-            TABLE_NAME_AUTOMOVIL, columns,
-            "$COL_ID=?", arrayOf(id.toString()), null, null, null
-        )
-        cursor!!.moveToFirst()
-        return cursor!!.getString(1)
-    }
+
 
 }

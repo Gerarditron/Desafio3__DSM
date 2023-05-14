@@ -8,7 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#1F618D</color>
+    <color name="background">#C9CEE7 </color>
+    <color name="background2">#C9E7E7</color>
     <color name="btn1">#3F51B5</color>
+    <color name="btn2">#70ABB0</color>
+    <color name="btn3">#A92B2B</color>
     <color name="btnExit">#C0392B</color>
     <color name="btnBack">#717D7E</color>
 </resources>
