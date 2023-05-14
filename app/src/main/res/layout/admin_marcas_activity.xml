@@ -91,24 +91,6 @@
         android:text="Cancel"
         android:textColor="@color/white" />
 
-    <EditText
-        android:id="@+id/txtId"
-        android:layout_width="122dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="17dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        android:enabled="false"
-        />
-
-    <TextView
-        android:id="@+id/txtIdDB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="10dp"
-        android:visibility="invisible" />
+    
 
 </LinearLayout>
