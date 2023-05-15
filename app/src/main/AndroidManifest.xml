@@ -27,22 +27,42 @@
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".login.SignUpActivity"
             android:exported="false"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:label="Registro de Usuarios"
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".MarcasActivity"
             android:exported="false"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:label="Listado de Marcas Disponibles"
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".MarcasCRUD"
             android:exported="false"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:label="Marcas"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".ColoresCRUD"
+            android:exported="false"
+            android:label="Colores"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".ColoresActivity"
+            android:exported="false"
+            android:label="Listado de Colores Disponibles"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".TipoAutoActivity"
+            android:exported="false"
+            android:label="Listado de Tipos de Automoviles Disponibles"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".TipoAutoCRUD"
+            android:exported="false"
+            android:label="Tipos de Automovil"
+            android:theme="@style/Theme.AppCompat.Light" />
     </application>
 
 </manifest>

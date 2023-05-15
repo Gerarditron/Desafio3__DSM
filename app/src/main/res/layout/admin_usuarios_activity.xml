@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/lbTitleMainUser"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/background"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="Editar Usuario"
+        android:textColor="@color/blue"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/lbDescripcionUserCRUD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:text="Edite la información de los USUARIOS, que aparecen en la aplicación."
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/txtNombreUserAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Digite el Nombre del Usuario"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/txtApellidoUserAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Digite el Apellido del Usuario"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/txtEmailUserAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Digite el Email del Usuario"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/txtPassworUserAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:hint="Digite la contraseña del Usuario"
+        android:textSize="16sp" />
+
+    <RadioGroup
+        android:id="@+id/rdgpTipoUsuarioAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rdAdministradorAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:onClick="rdAdministradorAdmin_click"
+            android:text="ADMIN" />
+
+        <RadioButton
+            android:id="@+id/rdClienteAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:onClick="rdClienteAdmin_click"
+            android:checked="true"
+            android:text="CLIENTE" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnAddUser"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/btn1"
+        android:textColor="@color/white"
+        android:text="Agregar" />
+
+    <Button
+        android:id="@+id/btnUpdateUser"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/btn2"
+        android:textColor="@color/white"
+        android:text="Actualizar" />
+
+    <Button
+        android:id="@+id/btnCancelUser"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/btnBack"
+        android:gravity="center"
+        android:text="Cancel"
+        android:textColor="@color/white" />
+
+</LinearLayout>

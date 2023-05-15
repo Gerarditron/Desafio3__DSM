@@ -171,14 +171,8 @@ class SignUpActivity : AppCompatActivity(){
     }
 
 
-    fun rdAdmin_click(view: View?){
-        tipoSel = "ADMIN"
-        //Log.d("ADD USER", tipoSel)
-    }
-    fun rdCliente_click(view: View?){
-        tipoSel = "CLIENTE"
-        //Log.d("ADD USER", tipoSel)
-    }
+
+    
 
 
 }

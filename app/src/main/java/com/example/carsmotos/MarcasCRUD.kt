@@ -23,7 +23,6 @@ class MarcasCRUD : AppCompatActivity() {
     private var dbHelper : HelperDB? = null
     private var db: SQLiteDatabase? = null
     private var managerMarcas: Marcas? = null
-    private var cursorMarcas: Cursor? = null
 
     //MarcasCRUD Activity Variables
     private lateinit var txtMarcaAdmin: TextView
@@ -96,8 +95,7 @@ class MarcasCRUD : AppCompatActivity() {
                     nombreMarca
                 )
                 Toast.makeText(this, "Marca agregada", Toast.LENGTH_LONG).show()
-                val intent = Intent(this,MarcasActivity::class.java)
-                startActivity(intent)
+                finish()
             }
         }
 

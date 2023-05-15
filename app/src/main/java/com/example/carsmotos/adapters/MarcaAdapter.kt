@@ -52,7 +52,7 @@ class MarcaAdapter : RecyclerView.Adapter<MarcaAdapter.marcaViewHolder>() {
 
         fun bindView(mrc: MarcaModel){
             //Agregando al texto
-            txtName.text = mrc.nombre.toString()
+            txtName.text = mrc.nombre
         }
     }
 

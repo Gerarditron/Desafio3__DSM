@@ -189,6 +189,20 @@ class MainActivity : ComponentActivity() {
             intent = Intent(this, MarcasActivity::class.java)
             startActivity(intent)
         }
+
+        //ADMIN. COLORES
+        imgColoresCRUD.setOnClickListener {
+            intent = Intent(this, ColoresActivity::class.java)
+            startActivity(intent)
+        }
+
+        //ADMIN. TIPO AUTO
+        imgTipoautomovilCRUD.setOnClickListener {
+            intent = Intent(this, TipoAutoActivity:: class.java)
+            startActivity(intent)
+        }
+
+
     }
 
 

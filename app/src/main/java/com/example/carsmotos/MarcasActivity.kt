@@ -29,6 +29,7 @@ class MarcasActivity: AppCompatActivity() {
     private var db: SQLiteDatabase? = null
 
     //Variables del formulario
+    private lateinit var btnRegresarMarca: FloatingActionButton
     private lateinit var btnAgregarMarca: FloatingActionButton
     private lateinit var listMarcas: RecyclerView
     private var adapter: MarcaAdapter? = null
@@ -66,7 +67,7 @@ class MarcasActivity: AppCompatActivity() {
             intent.putExtra("idmarca",idmarca)
             intent.putExtra("nombremarca",nombremarca)
             startActivity(intent)
-
+            recreate()
         }
 
         //Al agregar un valor
@@ -86,6 +87,10 @@ class MarcasActivity: AppCompatActivity() {
             recreate()
         }
 
+        //Al darle click al boton regresar
+        btnRegresarMarca.setOnClickListener{
+            finish()
+        }
 
     }
 
@@ -96,6 +101,7 @@ class MarcasActivity: AppCompatActivity() {
     }
     private fun inicializarView(){
         //Declarando objetos en el formulario
+        btnRegresarMarca = findViewById(R.id.btnRegresarMarca)
         btnAgregarMarca = findViewById(R.id.btnAgregarMarca)
         listMarcas = findViewById(R.id.listMarcas)
     }

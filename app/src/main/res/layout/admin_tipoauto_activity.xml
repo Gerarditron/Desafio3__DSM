@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/lbTitleMainTipoAuto"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/background"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="Editar Tipo de Automovil"
+        android:textColor="@color/blue"
+        android:textSize="37sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/lbDescripcionTipoAutoCRUD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:text="Edite la información de los TIPOS DE AUTOMOVILES de los vehículos, que aparecen en la aplicación."
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/txtTipoAutoAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Digite el Tipo de Automóvil"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnAddTipoAuto"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/btn1"
+        android:textColor="@color/white"
+        android:text="Agregar" />
+
+    <Button
+        android:id="@+id/btnUpdateTipoAuto"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/btn2"
+        android:textColor="@color/white"
+        android:text="Actualizar" />
+
+    <Button
+        android:id="@+id/btnCancelTipo"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/btnBack"
+        android:gravity="center"
+        android:text="Cancel"
+        android:textColor="@color/white" />
+
+</LinearLayout>

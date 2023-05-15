@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CarsMotos</string>
     <string name="title_activity_login">CarsMotors</string>
+    <string name="title_activity_colores">ColoresActivity</string>
 </resources>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/lytMarcas"
+    android:id="@+id/lytColores"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAgregarMarca"
+        android:id="@+id/btnAgregarTipoAuto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -18,7 +18,7 @@
         app:srcCompat="@android:drawable/ic_input_add" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnRegresarMarca"
+        android:id="@+id/btnRegresarTipoAuto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -29,8 +29,9 @@
         app:fabSize="normal"
         app:srcCompat="?android:attr/actionModeCloseDrawable" />
 
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id= "@+id/listMarcas"
+        android:id= "@+id/listTipoAuto"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
