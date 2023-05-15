@@ -33,7 +33,7 @@
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/txtMARCA"
+        android:id="@+id/txtMarcaAdmin"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginLeft="30dp"
@@ -69,18 +69,6 @@
         android:text="Actualizar" />
 
     <Button
-        android:id="@+id/btnDeleteMarca"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="46dp"
-        android:backgroundTint="@color/btn3"
-        android:textColor="@color/white"
-        android:text="Eliminar" />
-
-
-    <Button
         android:id="@+id/btnCancelMarca"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
@@ -91,6 +79,6 @@
         android:text="Cancel"
         android:textColor="@color/white" />
 
-    
+
 
 </LinearLayout>

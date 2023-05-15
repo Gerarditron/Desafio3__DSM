@@ -1,16 +1,17 @@
 package com.example.carsmotos.model
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.example.carsmotos.adapters.MarcaAdapter
+import androidx.compose.material3.contentColorFor
+import com.example.carsmotos.classes.MarcaModel
 import com.example.carsmotos.db.HelperDB
 
 class Marcas(context: Context?) {
     private var helper: HelperDB? = null
     private var db: SQLiteDatabase? = null
-
 
     init {
         helper = HelperDB(context)
@@ -18,6 +19,7 @@ class Marcas(context: Context?) {
     }
 
     companion object {
+
         //TABLA MARCA
         val TABLE_NAME_MARCA = "marcas"
 
@@ -31,6 +33,7 @@ class Marcas(context: Context?) {
                         + COL_ID + " integer primary key autoincrement,"
                         + COL_NOMBRE + " varchar(45) NOT NULL);"
                 )
+
     }
 
     // ContentValues
@@ -50,6 +53,7 @@ class Marcas(context: Context?) {
             "Audi",
             "Lexus",
             "Renault",
+
             "Ford",
             "Opel",
             "Seat"
@@ -69,16 +73,22 @@ class Marcas(context: Context?) {
     }
 
     fun addNewMarca(nombre: String?) {
+        //Agregandolo en la bdd
         db!!.insert(
             TABLE_NAME_MARCA,
             null,
             generarContentValues(nombre)
         )
+
     }
+
 
     // Eliminar un registro
     fun deleteMarca(id: Int) {
-        db!!.delete(TABLE_NAME_MARCA, "${Usuarios.COL_ID}=?", arrayOf(id.toString()))
+        if(id == null) return //por si no manda nada
+
+
+        db!!.delete(TABLE_NAME_MARCA, "$COL_ID=?", arrayOf(id.toString()))
     }
 
     //Modificar un registro
@@ -88,18 +98,45 @@ class Marcas(context: Context?) {
     ) {
         db!!.update(
             TABLE_NAME_MARCA, generarContentValues(nombre),
-            "${Usuarios.COL_ID}=?", arrayOf(id.toString())
+            "$COL_ID=?", arrayOf(id.toString())
         )
+
     }
 
 
+    @SuppressLint("Range")
     fun showAllMarcas(): Cursor? {
         val columns = arrayOf(COL_ID, COL_NOMBRE) //Como la tabla solo tiene 2 columnas, yo solo dos le voy a agregar pero aqui se agregan o quitan
         val cursorAllMarcas : Cursor = db!!.query(
             TABLE_NAME_MARCA, columns,
             null, null, null, null, "$COL_NOMBRE ASC"
         )
+
         return cursorAllMarcas
+    }
+
+    @SuppressLint("Range")
+    fun showAllMarcasList(): ArrayList<MarcaModel> {
+        val marcaModelList: ArrayList<MarcaModel> = ArrayList()
+        val columns = arrayOf(COL_ID, COL_NOMBRE) //Como la tabla solo tiene 2 columnas, yo solo dos le voy a agregar pero aqui se agregan o quitan
+        val cursorAllMarcas : Cursor = db!!.query(
+            TABLE_NAME_MARCA, columns,
+            null, null, null, null, "$COL_NOMBRE ASC"
+        )
+
+        var idmarca : Int
+        var nombreMarca: String
+
+        if(cursorAllMarcas.moveToFirst()){
+            do{
+                idmarca = cursorAllMarcas.getInt(cursorAllMarcas.getColumnIndex("idmarcas"))
+                nombreMarca = cursorAllMarcas.getString(cursorAllMarcas.getColumnIndex("nombre"))
+
+                val marcaModel = MarcaModel(id = idmarca, nombre = nombreMarca)
+                marcaModelList.add(marcaModel)
+            } while (cursorAllMarcas.moveToNext())
+        }
+        return marcaModelList
     }
 
     // Debido a que el Spinner solamente guarda el nombre, esta funcion nos ayudara a recuperar el ID de la categoria

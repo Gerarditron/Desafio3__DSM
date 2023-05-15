@@ -78,23 +78,22 @@ class TiposAutomoviles (context: Context) {
 
     // Eliminar un registro
     fun deleteTipoAutomovil(id: Int) {
-        db!!.delete(TABLE_NAME_TIPOAUTOMOVIL, "${Usuarios.COL_ID}=?", arrayOf(id.toString()))
+        db!!.delete(TABLE_NAME_TIPOAUTOMOVIL, "$COL_ID=?", arrayOf(id.toString()))
     }
 
     //Modificar un registro
-    fun updateColor(
+    fun updateTipoAutomovil(
         id: Int,
         nombre: String?
     ) {
         db!!.update(
             TABLE_NAME_TIPOAUTOMOVIL, generarContentValues(nombre),
-            "${Usuarios.COL_ID}=?", arrayOf(id.toString())
+            "$COL_ID=?", arrayOf(id.toString())
         )
     }
 
-
     fun showAllTiposAutomoviles(): Cursor? {
-        val columns = arrayOf(COL_ID, COL_DESCRIPCION) //Como la tabla solo tiene 2 columnas, solo dos le voy a enviar, pero aqui se agregan o quitan las columnas deseadas
+        val columns = arrayOf(COL_ID, COL_DESCRIPCION) //Como la tabla solo tiene 2 columnas, yo solo dos le voy a agregar pero aqui se agregan o quitan
         val cursorAllTiposAutomoviles : Cursor = db!!.query(
             TABLE_NAME_TIPOAUTOMOVIL, columns,
             null, null, null, null, "$COL_DESCRIPCION ASC"

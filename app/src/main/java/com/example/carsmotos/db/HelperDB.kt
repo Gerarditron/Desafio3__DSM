@@ -16,6 +16,7 @@ class HelperDB(context: Context?) :
     companion object {
         private const val DB_NAME = "carsmotors.sqlite"
         private const val DB_VERSION = 1
+
     }
 
     override fun onCreate(db: SQLiteDatabase) {

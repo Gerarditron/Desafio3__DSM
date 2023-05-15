@@ -5,13 +5,21 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.carsmotos.adapters.MarcaAdapter
+import com.example.carsmotos.classes.MarcaModel
 import com.example.carsmotos.db.HelperDB
 import com.example.carsmotos.model.Marcas
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlin.String as String
+import kotlin.collections.MutableList as MutableList
 
 class MarcasActivity: AppCompatActivity() {
 
@@ -19,103 +27,49 @@ class MarcasActivity: AppCompatActivity() {
     private var managerMarcas: Marcas? = null
     private var dbHelper : HelperDB? = null
     private var db: SQLiteDatabase? = null
-    private var cursor: Cursor? = null
 
     //Variables del formulario
     private lateinit var btnAgregarMarca: FloatingActionButton
-    var marcas: MutableList<Marcas>? = null
-    var listMarcas: ListView? = null
-
-    /*var marcasREAD: Query = InvoiceActivity.refInvoices.orderByChild("fecha")
-    var invoices: MutableList<Invoice>? = null
-    var listInvoices: ListView? = null*/
+    private lateinit var listMarcas: RecyclerView
+    private var adapter: MarcaAdapter? = null
+    private var mrc: MarcaModel? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.marcas_activity)
 
+        //Inicializando componentes y la lista
+        inicializarView()
+        inicializarRecyclerView()
+
         //Declarando la base de datos
         dbHelper = HelperDB(this)
         db = dbHelper!!.writableDatabase
-
-        //Declarando objetos en el formulario
-        btnAgregarMarca = findViewById(R.id.btnAgregarMarca)
-        listMarcas = findViewById(R.id.listMarcas)
-
-
-
-        //Buscando los valores para la lista
+        //Buscando los valores para la lista de todas las MARCAS
         managerMarcas = Marcas(this)
+        val mrcList = managerMarcas!!.showAllMarcasList()
 
-        //Verificando si hay conexion a la bdd
-        if (db != null) {
+        //Desplegando la informacion en el RecyclerView
+        adapter?.addItems(mrcList)
 
-            //Revisando si existe el usuario que quiero registar
-            cursor = managerMarcas!!.showAllMarcas()
+        //Al darle click a algun boton de la lista para editar datos
+        adapter?.setOnClickItem {
+            //Toast.makeText(this, "Id: ${it.id} //Marca: ${it.nombre}",Toast.LENGTH_SHORT).show()
+            //Enviamos los valores de importancia al CRUD Marcas
+            val idmarca = it.id.toString()
+            val nombremarca = it.nombre
+            mrc = it
+            val opc = "editar"
+            val intent = Intent(this, MarcasCRUD::class.java)
+            intent.putExtra("opc",opc)
+            intent.putExtra("idmarca",idmarca)
+            intent.putExtra("nombremarca",nombremarca)
+            startActivity(intent)
 
-            if (cursor != null && cursor!!.count > 0) {
-                cursor!!.moveToFirst()
-
-                Log.d("MARCAS-ACTIVITY",cursor!!.getString(1))
-
-                /*val adapter = MarcaAdapter(
-                    this@MarcasActivity,
-                    marcas as ArrayList<Marcas>
-                )
-                listMarcas!!.adapter = adapter*/
-
-                /*val marcasList = cursor?.let {
-                    val list = ArrayList<Marcas>()
-                    while (it.moveToNext()) {
-                        val marca = Marcas(
-                            it.getInt(it.getColumnIndexOrThrow(COL_ID),
-                            it.getString(it.getColumnIndexOrThrow(COL_NOMBRE))
-                        )
-                        list.add(marca)
-                    }
-                    list
-                } ?: ArrayList<Marcas>()
-
-                var marcasAdapter = MarcaAdapter(this, marcasList)
-                listMarcas!!.adapter = marcasAdapter*/
-
-                //Guardando en variables la información del usuario con el que ingreso
-                /*
-                var userIDLog: Int? = managerMarcas!!.searchUserID(cursor!!.getInt(0))
-                Log.d("LOGIN",userIDLog.toString())
-                 */
-
-                //Encontrando los valores anexados a esa ID de usuario
-                /*
-                val (email, tipo) = managerUsuarios!!.informacionUsuario(userIDLog)
-                val emailLog: String = email.toString()
-                val tipoLog: String = tipo.toString()
-                */
-
-                /*
-                //Abrimos la actividad principal
-                Toast.makeText(this, "Bienvenido a CarsMotors", Toast.LENGTH_LONG).show()
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("userIDLog",userIDLog) //Int
-                intent.putExtra("emailLog",emailLog)
-                intent.putExtra("tipoLog",tipoLog)
-                startActivity(intent) */
-
-            } else {
-                Toast.makeText(this, "No se encontraron marcas", Toast.LENGTH_LONG).show()
-            }
-
-            marcas = ArrayList<Marcas>()
-
-        } else {
-            Toast.makeText(this, "No se puede conectar a la Base de Datos", Toast.LENGTH_LONG).show()
         }
 
-        //Al darle clic a un valor de la lista
-
-
-        //Al agregar una marca
+        //Al agregar un valor
         btnAgregarMarca.setOnClickListener {
             //Le envio como "putExtra" la opcion de AGREGAR, porque al inicio de la actividad MarcasCRUD,
             //para que en la actividad MarcaCRUD solo le quito las opciones segun la "opc" recibida
@@ -125,7 +79,27 @@ class MarcasActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
+        //Al darle click a eliminar un valor
+        adapter?.setOnClickDeleteItem {
+            managerMarcas!!.deleteMarca(it.id)
+            Toast.makeText(this, "Marca eliminada", Toast.LENGTH_LONG).show()
+            recreate()
+        }
+
+
     }
+
+    private fun inicializarRecyclerView(){
+        listMarcas.layoutManager = LinearLayoutManager(this)
+        adapter = MarcaAdapter()
+        listMarcas.adapter = adapter
+    }
+    private fun inicializarView(){
+        //Declarando objetos en el formulario
+        btnAgregarMarca = findViewById(R.id.btnAgregarMarca)
+        listMarcas = findViewById(R.id.listMarcas)
+    }
+
 
 
 }

@@ -110,12 +110,10 @@ class MainActivity : ComponentActivity() {
             cursorMarcas = managerMarcas!!.showAllMarcas()
 
             //Si no encuentra nada
-            if (cursorMarcas == null && cursorMarcas!!.count == 0) {
+            if (cursorMarcas == null || cursorMarcas!!.count == 0) {
                 //Creando los valores por defecto
                 managerMarcas!!.insertValuesDefault()
                 cursorMarcas!!.moveToFirst()
-                Log.d("MAIN-MARCAS",cursorMarcas!!.getString(0)) //Marca ID
-                Log.d("MAIN-MARCAS",cursorMarcas!!.getString(1)) //Nombre de la Marca
             }
 
 
@@ -125,13 +123,10 @@ class MainActivity : ComponentActivity() {
             cursorColores = managerColores!!.showAllColores()
 
             //Si no encuentra nada
-            if (cursorColores == null && cursorColores!!.count == 0) {
+            if (cursorColores == null || cursorColores!!.count == 0) {
                 //Creando los valores por defecto
                 managerColores!!.insertValuesDefault()
                 cursorColores!!.moveToFirst()
-                Log.d("MAIN-COLORES",cursorColores!!.getString(0)) //Color ID
-                Log.d("MAIN-COLORES",cursorColores!!.getString(1)) //Descripcion del Color
-
             }
 
 
@@ -140,12 +135,10 @@ class MainActivity : ComponentActivity() {
             cursorTiposAutomoviles = managerTiposAutomoviles!!.showAllTiposAutomoviles()
 
             //Si no encuentra nada
-            if (cursorTiposAutomoviles == null && cursorTiposAutomoviles!!.count == 0) {
+            if (cursorTiposAutomoviles == null || cursorTiposAutomoviles!!.count == 0) {
                 //Creando los valores por defecto
                 managerTiposAutomoviles!!.insertValuesDefault()
                 cursorTiposAutomoviles!!.moveToFirst()
-                Log.d("MAIN-TIPOSAUTOMOVILES",cursorTiposAutomoviles!!.getString(0)) //TipoAutomovil ID
-                Log.d("MAIN-TIPOSAUTOMOVILES",cursorTiposAutomoviles!!.getString(1)) //Descripcion del TipoAutomovil
             }
 
             //VALIDANDO SI YA EXISTEN DATOS EN LAS MARCAS

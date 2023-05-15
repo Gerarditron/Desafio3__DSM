@@ -26,12 +26,13 @@ class MarcasCRUD : AppCompatActivity() {
     private var cursorMarcas: Cursor? = null
 
     //MarcasCRUD Activity Variables
-    private lateinit var txtMARCA: TextView
+    private lateinit var txtMarcaAdmin: TextView
     private lateinit var btnAddMarca: Button
     private lateinit var btnUpdateMarca: Button
-    private lateinit var btnDeleteMarca: Button
     private lateinit var btnCancelMarca: Button
     private var opc: String? = null
+    private var id: String? = null
+    private var nombre: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,10 +44,9 @@ class MarcasCRUD : AppCompatActivity() {
         db = dbHelper!!.writableDatabase
         managerMarcas = Marcas(this) //ESTE ES DE VITAL IMPORTANCIA NO OLVIDAR SEGUN LA LECTURA A LA TABLA QUE SE HARA
         //Declarando componentes de la actividad Main
-        txtMARCA = findViewById(R.id.txtMARCA)
+        txtMarcaAdmin = findViewById(R.id.txtMarcaAdmin)
         btnAddMarca = findViewById(R.id.btnAddMarca)
         btnUpdateMarca = findViewById(R.id.btnUpdateMarca)
-        btnDeleteMarca = findViewById(R.id.btnDeleteMarca)
         btnCancelMarca = findViewById(R.id.btnCancelMarca)
 
         //Recogiendo los datos traidos de la actividad anterior
@@ -62,16 +62,19 @@ class MarcasCRUD : AppCompatActivity() {
                 btnUpdateMarca.isEnabled = false
                 btnUpdateMarca.isVisible = false
                 btnUpdateMarca.isClickable = false
-                //No se puede borrar un valor que sera recien agregado
-                btnDeleteMarca.isEnabled = false
-                btnDeleteMarca.isVisible = false
-                btnDeleteMarca.isClickable = false
             } else if (opc == "editar"){
                 //No se puede agregar un nuevo valor del que se esta actualizando
                 btnAddMarca.isEnabled = false
                 btnAddMarca.isVisible = false
                 btnAddMarca.isClickable = false
-                //LA ID DE LA MARCA QUE VAMOS A EDITAR IMPORTAR HASTA AQUI QUE YA CONFIRMAMOS QUE ES EDIT
+                //Importamos lo que se envia desde la otra actividad
+                id = intent.getStringExtra("idmarca").toString()
+                nombre = intent.getStringExtra("nombremarca").toString()
+                //Actualizamos el valor mostrado en el textbox
+                txtMarcaAdmin.text = nombre
+
+                //Toast.makeText(this, "ID: $id // Marca: $nombre", Toast.LENGTH_LONG).show()
+
             }
 
         } else { //Hubo un error encontrando los datos del usuario
@@ -83,8 +86,8 @@ class MarcasCRUD : AppCompatActivity() {
         //AGREGAR MARCA
         btnAddMarca.setOnClickListener{
             //Guardamos en una variables lo que este en txtMarca
-            val nombreMarca : String = txtMARCA.text.toString()
-            Log.d("MARCA-CRUD",nombreMarca)
+            val nombreMarca : String = txtMarcaAdmin.text.toString()
+
             //Validamos que el campo no este vacio
             if(nombreMarca.isEmpty() || nombreMarca == null){
                 Toast.makeText(this, "Digite el nombre de la marca por favor", Toast.LENGTH_LONG).show()
@@ -92,17 +95,35 @@ class MarcasCRUD : AppCompatActivity() {
                 managerMarcas!!.addNewMarca(
                     nombreMarca
                 )
-                Toast.makeText(this, "Producto agregado", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Marca agregada", Toast.LENGTH_LONG).show()
                 val intent = Intent(this,MarcasActivity::class.java)
                 startActivity(intent)
             }
         }
 
         //EDITAR MARCA
+        btnUpdateMarca.setOnClickListener{
+            //Guardamos en una variables lo que este en txtMarca
+            val nombreMarca : String = txtMarcaAdmin.text.toString()
+            val idStr : String = id.toString()
+            val idInt : Int = idStr.toInt()
+            Log.d("UPDATE-MARCA",nombreMarca)
+            Log.d("UP" +
+                    "DATE-MARCA",idInt.toString())
+            //Validamos que el campo no este vacio
+            if(nombreMarca.isEmpty() || nombreMarca == null){
+                Toast.makeText(this, "Digite el nombre de la marca por favor", Toast.LENGTH_LONG).show()
+            } else {
+                managerMarcas!!.updateMarca(
+                    id!!.toInt(),
+                    nombreMarca
+                )
 
-
-        //ELIMINAR MARCA
-
+                Toast.makeText(this, "Marca actualizada", Toast.LENGTH_LONG).show()
+                intent = Intent(this, MarcasActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
         //CANCELAR
         btnCancelMarca.setOnClickListener{

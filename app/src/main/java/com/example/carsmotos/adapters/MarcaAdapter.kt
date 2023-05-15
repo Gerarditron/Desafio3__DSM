@@ -1,40 +1,60 @@
 package com.example.carsmotos.adapters
 
-import android.app.Activity
-import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.carsmotos.R
-import com.example.carsmotos.db.HelperDB
-import com.example.carsmotos.model.Marcas
+import com.example.carsmotos.classes.MarcaModel
 
-class MarcaAdapter(private val context: Activity, private var marcas: List<Marcas>) : ArrayAdapter<Marcas?>(context, R.layout.marcas_layout,marcas) {
+class MarcaAdapter : RecyclerView.Adapter<MarcaAdapter.marcaViewHolder>() {
+    private var mrcList: ArrayList<MarcaModel> = ArrayList()
+    private var onClickItem : ((MarcaModel) -> Unit)? = null
+    private var onClickDeleteItem : ((MarcaModel) -> Unit)? = null
+    fun addItems(items: ArrayList<MarcaModel>){
+        this.mrcList = items
+        notifyDataSetChanged()
+    }
+
+    //Al darle click a un valor en la lista
+    fun setOnClickItem(callback: (MarcaModel) -> Unit){
+        this.onClickItem = callback
+    }
+
+    //Al darle click al boton eliminar
+    fun setOnClickDeleteItem(callback: (MarcaModel) -> Unit){
+        this.onClickDeleteItem = callback
+    }
 
 
-    //Database variables
-    private var dbHelper : HelperDB? = null
-    private var db: SQLiteDatabase? = null
-    private var managerMarcas: Marcas? = null
-    private var cursorMarcas: Cursor? = null
-    private lateinit var txtMarca: TextView
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = marcaViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.marcas_layout,parent,false)
+    )
 
+    override fun getItemCount(): Int {
+        return mrcList.size
+    }
 
-    override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        //Declaramos los valores para leer a la bdd
-        managerMarcas = Marcas(context)
-        cursorMarcas = managerMarcas!!.showAllMarcas() //query con el que leemos los datos de la Base de datos
-
-        // Método invocado tantas veces como elementos tenga la coleccion
-        val layoutInflater = context.layoutInflater
-        var rowview: View? = null
-        rowview = view ?: layoutInflater.inflate(R.layout.marcas_layout, null)
-        txtMarca.text = cursorMarcas!!.getString(1)
-
-        return rowview!!
+    override fun onBindViewHolder(holder: marcaViewHolder, position: Int) {
+        val mrc = mrcList[position]
+        holder.bindView(mrc)
+        holder.itemView.setOnClickListener{onClickItem?.invoke(mrc)}
+        holder.btnDeleteMarca.setOnClickListener { onClickDeleteItem?.invoke(mrc) }
 
     }
+
+    class marcaViewHolder(var view: View): RecyclerView.ViewHolder(view){
+        //Declarando las variables de "marcas_layout"
+        private var txtName = view.findViewById<TextView>(R.id.txtMarca)
+        var btnDeleteMarca = view.findViewById<Button>(R.id.btnDeleteMarca)
+
+        fun bindView(mrc: MarcaModel){
+            //Agregando al texto
+            txtName.text = mrc.nombre.toString()
+        }
+    }
+
 
 }

@@ -1,9 +1,12 @@
 package com.example.carsmotos.model
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.example.carsmotos.classes.ColoresModel
+import com.example.carsmotos.classes.MarcaModel
 import com.example.carsmotos.db.HelperDB
 
 class Colores (context: Context){
@@ -78,7 +81,7 @@ class Colores (context: Context){
 
     // Eliminar un registro
     fun deleteColor(id: Int) {
-        db!!.delete(TABLE_NAME_COLORES, "${Usuarios.COL_ID}=?", arrayOf(id.toString()))
+        db!!.delete(TABLE_NAME_COLORES, "$COL_ID=?", arrayOf(id.toString()))
     }
 
     //Modificar un registro
@@ -88,7 +91,7 @@ class Colores (context: Context){
     ) {
         db!!.update(
             TABLE_NAME_COLORES, generarContentValues(nombre),
-            "${Usuarios.COL_ID}=?", arrayOf(id.toString())
+            "$COL_ID=?", arrayOf(id.toString())
         )
     }
 
@@ -99,6 +102,30 @@ class Colores (context: Context){
             null, null, null, null, "$COL_DESCRIPCION ASC"
         )
         return cursorAllColores
+    }
+
+    @SuppressLint("Range")
+    fun showAllList(): ArrayList<ColoresModel> {
+        val modelList: ArrayList<ColoresModel> = ArrayList()
+        val columns = arrayOf(COL_ID, COL_DESCRIPCION) //Como la tabla solo tiene 2 columnas, yo solo dos le voy a agregar pero aqui se agregan o quitan
+        val cursor : Cursor = db!!.query(
+            Colores.TABLE_NAME_COLORES, columns,
+            null, null, null, null, "$COL_DESCRIPCION ASC"
+        )
+
+        var id : Int
+        var desripcion: String
+
+        if(cursor.moveToFirst()){
+            do{
+                id = cursor.getInt(cursor.getColumnIndex("idcolores"))
+                desripcion = cursor.getString(cursor.getColumnIndex("descripcion"))
+
+                val coloresModel = ColoresModel(id = id, descripcion = desripcion)
+                modelList.add(coloresModel)
+            } while (cursor.moveToNext())
+        }
+        return modelList
     }
 
     // Debido a que el Spinner solamente guarda el nombre, esta funcion nos ayudara a recuperar el ID de la categoria
