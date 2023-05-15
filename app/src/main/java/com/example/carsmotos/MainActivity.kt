@@ -171,16 +171,29 @@ class MainActivity : ComponentActivity() {
 
         //DECLARANDO EL CLICK A LOS BOTONS
         //AUTOMOVILES FAVORITOS
-
+        imgFavAutomoviles.setOnClickListener {
+            Toast.makeText(this, "El listado de Automoviles Favoritos, esta en desarrollo.....", Toast.LENGTH_SHORT).show()
+        }
 
         //LISTADO DE AUTOMOVILES
-
+        imgAutomoviles.setOnClickListener {
+            Toast.makeText(this, "El listado de Automoviles, esta en desarrollo.....", Toast.LENGTH_SHORT).show()
+        }
 
 
         //CERRAR SESION
         imgLogOut.setOnClickListener {
             Toast.makeText(this,"Cerrando sesión",Toast.LENGTH_SHORT).show()
             finish()
+        }
+
+        //ADMIN. AUTOS
+
+
+        //ADMIN. USUARIOS
+        imgUsuariosCRUD.setOnClickListener {
+            intent = Intent(this, UsuariosActivity::class.java)
+            startActivity(intent)
         }
 
 

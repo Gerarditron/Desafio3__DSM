@@ -55,11 +55,6 @@ class SignUpActivity : AppCompatActivity(){
         btnRegister = findViewById(R.id.btnRegister)
         btnBackRegister = findViewById(R.id.btnBackRegister)
 
-
-
-
-
-
         //Al presionar el boton Registrar
         btnRegister.setOnClickListener {
             registerNewUser()
@@ -171,8 +166,14 @@ class SignUpActivity : AppCompatActivity(){
     }
 
 
-
-    
+    fun rdAdmin_click(view: View?){
+        tipoSel = "ADMIN"
+        //Log.d("ADD USER", tipoSel)
+    }
+    fun rdCliente_click(view: View?){
+        tipoSel = "CLIENTE"
+        //Log.d("ADD USER", tipoSel)
+    }
 
 
 }

@@ -63,6 +63,16 @@
             android:exported="false"
             android:label="Tipos de Automovil"
             android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".UsuariosCRUD"
+            android:exported="false"
+            android:label="Usuarios"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".UsuariosActivity"
+            android:exported="false"
+            android:label="Listado de Usuarios Disponibles"
+            android:theme="@style/Theme.AppCompat.Light" />
     </application>
 
 </manifest>

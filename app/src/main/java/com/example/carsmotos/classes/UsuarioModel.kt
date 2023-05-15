@@ -1,7 +1,7 @@
 package com.example.carsmotos.classes
 
-class UsuarioModel(
-    var idusuario: Int,
+data class UsuarioModel(
+    var id: Int,
     var nombres: String,
     var apellidos: String,
     var email: String,

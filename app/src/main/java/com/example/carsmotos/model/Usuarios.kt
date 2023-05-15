@@ -1,9 +1,13 @@
 package com.example.carsmotos.model
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.example.carsmotos.classes.ColoresModel
+import com.example.carsmotos.classes.MarcaModel
+import com.example.carsmotos.classes.UsuarioModel
 import com.example.carsmotos.db.HelperDB
 
 class Usuarios(context: Context) {
@@ -101,13 +105,17 @@ class Usuarios(context: Context) {
         )
     }
 
+
+
     // Mostrar un registro particular
-    fun searchUsuarioID(id: Int): Cursor? {
-        val columns = arrayOf(COL_ID, COL_APELLIDO, COL_NOMBRE, COL_EMAIL, COL_TIPO)
-        return db!!.query(
+    fun searchID(id: Int): Cursor? {
+        val columns = arrayOf(COL_ID, COL_NOMBRE, COL_APELLIDO, COL_EMAIL, COL_USER, COL_PASSWORD, COL_TIPO)
+        val cursor = db!!.query(
             TABLE_NAME_USUARIO, columns,
             "$COL_ID=?", arrayOf(id.toString()), null, null, null
         )
+
+        return cursor
     }
 
 
@@ -132,6 +140,42 @@ class Usuarios(context: Context) {
             null, null, null, null, "$COL_APELLIDO ASC"
         )
         return cursorAllUsuarios
+    }
+
+    @SuppressLint("Range")
+    fun showAllList(): ArrayList<UsuarioModel> {
+        val modelList: ArrayList<UsuarioModel> = ArrayList()
+        val columns = arrayOf(COL_ID, COL_NOMBRE, COL_APELLIDO, COL_EMAIL, COL_USER, COL_PASSWORD, COL_TIPO) //Como la tabla solo tiene 2 columnas, yo solo dos le voy a agregar pero aqui se agregan o quitan
+        val cursor : Cursor = db!!.query(
+            Usuarios.TABLE_NAME_USUARIO, columns,
+            null, null, null, null, "$COL_NOMBRE ASC"
+        )
+
+        var id : Int
+        var nombres : String
+        var apellidos : String
+        var email : String
+        var user : String
+        var password : String
+        var tipo : String
+
+
+        if(cursor.moveToFirst()){
+            do{
+                id = cursor.getInt(cursor.getColumnIndex("idusuario"))
+                nombres = cursor.getString(cursor.getColumnIndex("nombres"))
+                apellidos = cursor.getString(cursor.getColumnIndex("apellidos"))
+                email = cursor.getString(cursor.getColumnIndex("email"))
+                user = cursor.getString(cursor.getColumnIndex("user"))
+                password = cursor.getString(cursor.getColumnIndex("password"))
+                tipo = cursor.getString(cursor.getColumnIndex("tipo"))
+
+
+                val usersModel = UsuarioModel(id = id, nombres = nombres, apellidos = apellidos, email = email, user = user, password = password, tipo = tipo)
+                modelList.add(usersModel)
+            } while (cursor.moveToNext())
+        }
+        return modelList
     }
 
 
