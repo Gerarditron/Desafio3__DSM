@@ -1,9 +1,12 @@
 package com.example.carsmotos.model
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.example.carsmotos.classes.AutomovilModel
+import com.example.carsmotos.classes.UsuarioModel
 import com.example.carsmotos.db.HelperDB
 
 class Automoviles(context: Context?) {
@@ -46,17 +49,17 @@ class Automoviles(context: Context?) {
                         + COL_NUMERO_CHASIS + " varchar(45) NOT NULL,"
                         + COL_NUMERO_MOTOR + " varchar(45) NOT NULL,"
                         + COL_NUMERO_ASIENTOS + " integer NOT NULL,"
-                        + COL_ANIO + " year NOT NULL,"
-                        + COL_CAPACIDAD_ASIENTOS + " int NOT NULL,"
-                        + COL_PRECIO + " decimal(10,2) NOT NULL,"
+                        + COL_ANIO + " integer NOT NULL,"
+                        + COL_CAPACIDAD_ASIENTOS + " integer NOT NULL,"
+                        + COL_PRECIO + " double NOT NULL,"
                         + COL_URI_IMG + " varchar(45) NOT NULL,"
                         + COL_DESCRIPCION + " varchar(45) NOT NULL,"
                         + COL_IDMARCAS + " integer NOT NULL,"
                         + COL_IDTIPOAUTOMOVIL + " integer NOT NULL,"
                         + COL_IDCOLORES + " integer NOT NULL,"
-                        + " FOREIGN KEY ("+ COL_IDMARCAS +") REFERENCES marcas(idmarcas),"
-                        + " FOREIGN KEY ("+ COL_IDTIPOAUTOMOVIL +") REFERENCES tipo_automovil(idtipoautomovil),"
-                        + " FOREIGN KEY ("+ COL_IDCOLORES +") REFERENCES colores(idcolores) "
+                        + " FOREIGN KEY (" + COL_IDMARCAS + ") REFERENCES marcas(idmarcas),"
+                        + " FOREIGN KEY (" + COL_IDTIPOAUTOMOVIL + ") REFERENCES tipo_automovil(idtipoautomovil),"
+                        + " FOREIGN KEY (" + COL_IDCOLORES + ") REFERENCES colores(idcolores) "
                         + ");"
                 )
     }
@@ -68,8 +71,8 @@ class Automoviles(context: Context?) {
         numero_chasis: String?,
         numero_motor: String?,
         numero_asientos: Int?,
-        anio: String?, //Viene como un valor tipo YEAR, hay que convertirlo
-        capacidad_asientos: String?,
+        anio: Int?, //Por cuestiones de tiempo la voy a mandar como un INT
+        capacidad_asientos: Int?,
         precio: Double?, //Viene como un Decimal de 2 decimales, hay que convertirlo
         URI_IMG: String?,
         descripcion: String?,
@@ -95,26 +98,209 @@ class Automoviles(context: Context?) {
         return automovilesValores
     }
 
+    //Agregar un nuevo registro
+    fun addNewAuto(
+        modelo: String?,
+        numero_vin: String?,
+        numero_chasis: String?,
+        numero_motor: String?,
+        numero_asientos: Int?,
+        anio: Int?,
+        capacidad_asientos: Int?,
+        precio: Double?,
+        URI_IMG: String?,
+        descripcion: String?,
+        idmarcas: Int?,
+        idtipoautomovil: Int?,
+        idcolores: Int?
+    ) {
+        db!!.insert(
+            Automoviles.TABLE_NAME_AUTOMOVIL,
+            null,
+            generarContentValues(
+                modelo,
+                numero_vin,
+                numero_chasis,
+                numero_motor,
+                numero_asientos,
+                anio,
+                capacidad_asientos,
+                precio,
+                URI_IMG,
+                descripcion,
+                idmarcas,
+                idtipoautomovil,
+                idcolores
+            )
+        )
+    }
+
+    fun updateAuto(
+        id: Int,
+        modelo: String?,
+        numero_vin: String?,
+        numero_chasis: String?,
+        numero_motor: String?,
+        numero_asientos: Int?,
+        anio: Int?,
+        capacidad_asientos: Int?,
+        precio: Double?,
+        URI_IMG: String?,
+        descripcion: String?,
+        idmarcas: Int?,
+        idtipoautomovil: Int?,
+        idcolores: Int?
+    ) {
+        db!!.update(
+            Automoviles.TABLE_NAME_AUTOMOVIL, generarContentValues(
+                modelo,
+                numero_vin,
+                numero_chasis,
+                numero_motor,
+                numero_asientos,
+                anio,
+                capacidad_asientos,
+                precio,
+                URI_IMG,
+                descripcion,
+                idmarcas,
+                idtipoautomovil,
+                idcolores
+            ),
+            "$COL_ID=?", arrayOf(id.toString())
+        )
+    }
+
+
     fun showAllAutomoviles(): Cursor? {
-        val columns = arrayOf(COL_ID, COL_NUMERO_VIN, COL_NUMERO_CHASIS, COL_NUMERO_MOTOR, COL_NUMERO_ASIENTOS, COL_PRECIO, COL_URI_IMG, COL_DESCRIPCION, COL_IDMARCAS, COL_IDTIPOAUTOMOVIL, COL_IDCOLORES)
+        val columns = arrayOf(
+            COL_ID,
+            COL_MODELO,
+            COL_NUMERO_VIN,
+            COL_NUMERO_CHASIS,
+            COL_NUMERO_MOTOR,
+            COL_NUMERO_ASIENTOS,
+            COL_ANIO,
+            COL_CAPACIDAD_ASIENTOS,
+            COL_PRECIO,
+            COL_URI_IMG,
+            COL_DESCRIPCION,
+            COL_IDMARCAS,
+            COL_IDTIPOAUTOMOVIL,
+            COL_IDCOLORES
+        )
         return db!!.query(
             TABLE_NAME_AUTOMOVIL, columns,
             null, null, null, null, "$COL_DESCRIPCION ASC"
         )
     }
 
-    //Por si deseamos que nos imprima SOLO LA DESCRIPCION, que encontremos con un id
-    fun searchID(nombre: String): Int? {
-        val columns = arrayOf(COL_ID, COL_DESCRIPCION)
-        var cursor: Cursor? = db!!.query(
-            TABLE_NAME_AUTOMOVIL, columns,
-            "$COL_DESCRIPCION=?", arrayOf(nombre.toString()), null, null, null
+    @SuppressLint("Range")
+    fun showAllList(): ArrayList<AutomovilModel> {
+        val modelList: ArrayList<AutomovilModel> = ArrayList()
+        val columns = arrayOf(
+            COL_ID,
+            COL_MODELO,
+            COL_NUMERO_VIN,
+            COL_NUMERO_CHASIS,
+            COL_NUMERO_MOTOR,
+            COL_NUMERO_ASIENTOS,
+            COL_ANIO,
+            COL_CAPACIDAD_ASIENTOS,
+            COL_PRECIO,
+            COL_URI_IMG,
+            COL_DESCRIPCION,
+            COL_IDMARCAS,
+            COL_IDTIPOAUTOMOVIL,
+            COL_IDCOLORES
         )
-        cursor!!.moveToFirst()
-        return cursor!!.getInt(0)
+        val cursor: Cursor = db!!.query(
+            TABLE_NAME_AUTOMOVIL, columns,
+            null, null, null, null, "$COL_MODELO ASC"
+        )
+
+        var id: Int
+        var modelo: String
+        var numero_vin: String
+        var numero_chasis: String
+        var numero_motor: String
+        var numero_asientos: Int
+        var anio: Int
+        var capacidad_asientos: Int
+        var precio: Double
+        var URI_IMG: String
+        var descripcion: String
+        var idmarcas: Int
+        var idtipoautomovil: Int
+        var idcolores: Int
+
+        if (cursor.moveToFirst()) {
+            do {
+                id = cursor.getInt(cursor.getColumnIndex("idautomovil"))
+                modelo = cursor.getString(cursor.getColumnIndex("modelo"))
+                numero_vin = cursor.getString(cursor.getColumnIndex("numero_vin"))
+                numero_chasis = cursor.getString(cursor.getColumnIndex("numero_chasis"))
+                numero_motor = cursor.getString(cursor.getColumnIndex("numero_motor"))
+                numero_asientos = cursor.getInt(cursor.getColumnIndex("numero_asientos"))
+                anio = cursor.getInt(cursor.getColumnIndex("anio"))
+                capacidad_asientos = cursor.getInt(cursor.getColumnIndex("capacidad_asientos"))
+                precio = cursor.getDouble(cursor.getColumnIndex("precio"))
+                URI_IMG = cursor.getString(cursor.getColumnIndex("URI_IMG"))
+                descripcion = cursor.getString(cursor.getColumnIndex("descripcion"))
+                idmarcas = cursor.getInt(cursor.getColumnIndex("idmarcas"))
+                idtipoautomovil = cursor.getInt(cursor.getColumnIndex("idtipoautomovil"))
+                idcolores = cursor.getInt(cursor.getColumnIndex("idcolores"))
+
+
+                val autosModel = AutomovilModel(
+                    id = id,
+                    modelo = modelo,
+                    numero_vin = numero_vin,
+                    numero_chasis = numero_chasis,
+                    numero_motor = numero_motor,
+                    numero_asientos = numero_asientos,
+                    anio = anio,
+                    capacidad_asientos = capacidad_asientos,
+                    precio = precio, //Decimal de 2 decimales
+                    URI_IMG = URI_IMG,
+                    descripcion = descripcion,
+                    idmarcas = idmarcas,
+                    idtipoautomovil = idtipoautomovil,
+                    idcolores = idcolores
+                )
+                modelList.add(autosModel)
+            } while (cursor.moveToNext())
+        }
+        return modelList
     }
 
+    //Por si deseamos que nos imprima SOLO LA DESCRIPCION, que encontremos con un id
+    fun searchID(id: Int): Cursor? {
+        val columns = arrayOf(
+            COL_ID,
+            COL_MODELO,
+            COL_NUMERO_VIN,
+            COL_NUMERO_CHASIS,
+            COL_NUMERO_MOTOR,
+            COL_NUMERO_ASIENTOS,
+            COL_ANIO,
+            COL_CAPACIDAD_ASIENTOS,
+            COL_PRECIO,
+            COL_URI_IMG,
+            COL_DESCRIPCION,
+            COL_IDMARCAS,
+            COL_IDTIPOAUTOMOVIL,
+            COL_IDCOLORES
+        )
+        var cursor: Cursor? = db!!.query(
+            TABLE_NAME_AUTOMOVIL, columns,
+            "$COL_ID=?", arrayOf(id.toString()), null, null, null
+        )
+        return cursor
+    }
 
-
-
+    // Eliminar un registro
+    fun deleteAuto(id: Int) {
+        db!!.delete(TABLE_NAME_AUTOMOVIL, "$COL_ID=?", arrayOf(id.toString()))
+    }
 }

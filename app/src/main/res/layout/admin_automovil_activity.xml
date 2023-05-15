@@ -1,6 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/lbTitleMainAuto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/background"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="Editar Automovil"
+        android:textColor="@color/blue"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/lbDescripcionAutomovilCRUD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:text="Edite la información de los Automoviles, que aparecen disponibles en la aplicación."
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/txtModelo"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Digite el Modelo"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/lyNumbers1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/txtNumeroVin"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Digite Numero_VIN"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/txtNumeroChasis"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Digite Numero_CHASIS"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyNumbers2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/txtNumeroMotor"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Digite Numero_Motor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/txtNumeroAsientos"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Digite Numero_Asientos"
+            android:inputType="number"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyNumbers3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/txtAnio"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Digite el Año"
+            android:inputType="number"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/txtCapacidadAsientos"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Capacidad de Asientos"
+            android:inputType="number"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/txtPrecio"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Digite el Precio"
+        android:inputType="numberDecimal"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/txtDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Digite una descripcion del Automovil"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/lytCombos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/cmbColor"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1" />
+
+        <Spinner
+            android:id="@+id/cmbMarcas"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/cmbTipoAuto"
+        android:layout_width="319dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="5dp"/>
+
+
+    <Button
+        android:id="@+id/btnAddAutomovil"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/btn1"
+        android:textColor="@color/white"
+        android:text="Agregar" />
+
+    <Button
+        android:id="@+id/btnUpdateAutomovil"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/btn2"
+        android:textColor="@color/white"
+        android:text="Actualizar" />
+
+    <Button
+        android:id="@+id/btnCancelAutomovil"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/btnBack"
+        android:gravity="center"
+        android:text="Cancel"
+        android:textColor="@color/white" />
+
+</LinearLayout>

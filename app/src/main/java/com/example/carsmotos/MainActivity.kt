@@ -113,7 +113,6 @@ class MainActivity : ComponentActivity() {
             if (cursorMarcas == null || cursorMarcas!!.count == 0) {
                 //Creando los valores por defecto
                 managerMarcas!!.insertValuesDefault()
-                cursorMarcas!!.moveToFirst()
             }
 
 
@@ -126,7 +125,6 @@ class MainActivity : ComponentActivity() {
             if (cursorColores == null || cursorColores!!.count == 0) {
                 //Creando los valores por defecto
                 managerColores!!.insertValuesDefault()
-                cursorColores!!.moveToFirst()
             }
 
 
@@ -138,31 +136,6 @@ class MainActivity : ComponentActivity() {
             if (cursorTiposAutomoviles == null || cursorTiposAutomoviles!!.count == 0) {
                 //Creando los valores por defecto
                 managerTiposAutomoviles!!.insertValuesDefault()
-                cursorTiposAutomoviles!!.moveToFirst()
-            }
-
-            //VALIDANDO SI YA EXISTEN DATOS EN LAS MARCAS
-            cursor = managerMarcas!!.showAllMarcas()
-
-            if (cursor != null && cursor!!.count > 0) { //Si encuentra registros que haga lo siguiente
-
-                //Imprimiendo todas las MARCAS de la bdd en el LOG
-                if (cursor!!.moveToFirst()) {
-                    do {
-                        val id = cursor!!.getString(0)
-                        val nombre = cursor!!.getString(1)
-
-                        // Do something with the data
-                        // For example, print it to the console
-                        Log.d("MARCA-ID", id)
-                        Log.d("MARCA-NAME",nombre)
-                    } while (cursor!!.moveToNext())
-                }
-                cursor!!.close()
-
-
-            } else {
-                Toast.makeText(this, "No se encontraron Marcas", Toast.LENGTH_LONG).show()
             }
 
         }
@@ -177,7 +150,8 @@ class MainActivity : ComponentActivity() {
 
         //LISTADO DE AUTOMOVILES
         imgAutomoviles.setOnClickListener {
-            Toast.makeText(this, "El listado de Automoviles, esta en desarrollo.....", Toast.LENGTH_SHORT).show()
+            intent = Intent(this, AutomovilActivity::class.java)
+            startActivity(intent)
         }
 
 
@@ -188,7 +162,10 @@ class MainActivity : ComponentActivity() {
         }
 
         //ADMIN. AUTOS
-
+        imgAutomovilCRUD.setOnClickListener {
+            intent = Intent(this, AutomovilActivity::class.java)
+            startActivity(intent)
+        }
 
         //ADMIN. USUARIOS
         imgUsuariosCRUD.setOnClickListener {

@@ -161,6 +161,10 @@ class UsuariosCRUD : AppCompatActivity() {
                 tipo = "ADMIN"
             }
 
+            //Campos que si estan vacios se llenen con valor por defecto
+            if(tipo.isEmpty() || tipo == null) {
+                tipo = "ADMIN"
+            }
             //Validamos que el campo no este vacio
             if(nombre.isEmpty() || nombre == null){
                 Toast.makeText(this, "Digite el nombre del usuario por favor", Toast.LENGTH_LONG).show()
@@ -174,8 +178,6 @@ class UsuariosCRUD : AppCompatActivity() {
                 Toast.makeText(this, "Digite el usuario por favor", Toast.LENGTH_LONG).show()
             } else if(password.isEmpty() || password == null){
                 Toast.makeText(this, "Digite la contraseña del usuario por favor", Toast.LENGTH_LONG).show()
-            } else if(tipo.isEmpty() || tipo == null){
-                tipo = "ADMIN"
             } else {
                 managerUsuarios!!.addNewUser(
                     nombre,
